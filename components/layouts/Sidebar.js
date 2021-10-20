@@ -7,10 +7,11 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FaRss } from "react-icons/fa";
-import { HiCode } from "react-icons/hi";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import React, { useEffect, useState } from "react";
+import { SiThemoviedatabase } from "react-icons/si";
+import { BsFillBookmarkStarFill, BsMenuAppFill } from "react-icons/bs";
+import { GiPopcorn } from "react-icons/gi";
+import { MdKeyboardArrowRight, MdUpcoming } from "react-icons/md";
+import React, { Fragment, useEffect, useState } from "react";
 
 import NavLink from "./../elements/NavLink";
 import api from "../../api";
@@ -41,17 +42,27 @@ export default function SidebarContent(props) {
       w="60"
       {...props}
     >
-      <Flex px="4" py="5" align="center">
+      <Flex px="8" py="5" align="center">
+        <Icon
+          mr="2"
+          boxSize="12"
+          _groupHover={{
+            color: useColorModeValue("gray.600", "gray.300"),
+          }}
+          as={SiThemoviedatabase}
+        />
         <Text
           fontSize="2xl"
           ml="2"
           color={useColorModeValue("brand.500", "white")}
           fontWeight="semibold"
         >
-          Choc UI
+          Movie DB
         </Text>
       </Flex>
       <Flex
+        py="10"
+        px="5"
         direction="column"
         as="nav"
         fontSize="sm"
@@ -59,27 +70,27 @@ export default function SidebarContent(props) {
         aria-label="Main Navigation"
       >
         <NavLink
-          icon={FaRss}
+          icon={GiPopcorn}
           link="/movies/[category]"
           linkObject={{ category: "popular" }}
         >
           Popular
         </NavLink>
         <NavLink
-          icon={FaRss}
+          icon={MdUpcoming}
           link="/movies/[category]"
           linkObject={{ category: "upcoming" }}
         >
           Upcoming
         </NavLink>
         <NavLink
-          icon={FaRss}
+          icon={BsFillBookmarkStarFill}
           link="/movies/[category]"
           linkObject={{ category: "top_rated" }}
         >
           Top Rated
         </NavLink>
-        <NavLink icon={HiCode} onClick={integrations.onToggle} link="/">
+        <NavLink icon={BsMenuAppFill} onClick={integrations.onToggle}>
           Genres
           <Icon
             as={MdKeyboardArrowRight}
@@ -101,6 +112,17 @@ export default function SidebarContent(props) {
               </NavLink>
             ))}
         </Collapse>
+      </Flex>
+      <Flex position="fixed" bottom="5" left="8" overflow="hidden">
+        <div className="sc-gzVnrw bxYPLd">
+          Copyright ©
+          <a
+            href="https://www.github.com/jeroenroels"
+            className="sc-htoDjs iLMqGX"
+          >
+            jeroenroels
+          </a>
+        </div>
       </Flex>
     </Box>
   );

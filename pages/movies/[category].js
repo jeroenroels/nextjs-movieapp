@@ -1,6 +1,7 @@
 import { SimpleGrid, Stack, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, Fragment } from "react";
+import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 
 import Card from "../../components/elements/Card";
 import api from "../../api";
@@ -11,13 +12,23 @@ export default function Category() {
   const [movies, setMovies] = useState({});
   const [page, setPage] = useState(1);
 
+  const getMovies = async (category, page) => {
+    const result = await api.getByCategory(category, page);
+    setMovies(result.data);
+  };
+
   useEffect(() => {
     if (category) {
-      api
-        .getByCategory(category, page)
-        .then((response) => setMovies(response.data));
+      setPage(1);
+      getMovies(category, page);
     }
-  }, [category, page]);
+  }, [category]);
+
+  useEffect(() => {
+    if (category) {
+      getMovies(category, page);
+    }
+  }, [page]);
 
   return (
     <Fragment>
@@ -39,13 +50,21 @@ export default function Category() {
       >
         <Stack spacing={6} direction={"row"}>
           {page > 1 && (
-            <Button rounded={"full"} px={6} onClick={() => setPage(page - 1)}>
-              Previous
+            <Button
+              px={6}
+              onClick={() => setPage(page - 1)}
+              leftIcon={<MdArrowBackIos />}
+            >
+              Page {page - 1}
             </Button>
           )}
           {page < movies.total_pages && (
-            <Button rounded={"full"} px={6} onClick={() => setPage(page + 1)}>
-              Next
+            <Button
+              px={6}
+              onClick={() => setPage(page + 1)}
+              rightIcon={<MdArrowForwardIos />}
+            >
+              Page {page + 1}
             </Button>
           )}
         </Stack>

@@ -7,23 +7,22 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { FaClipboardCheck, FaRss } from "react-icons/fa";
-import { AiFillGift } from "react-icons/ai";
-import { BsGearFill } from "react-icons/bs";
-import { HiCode, HiCollection } from "react-icons/hi";
-import { MdHome, MdKeyboardArrowRight } from "react-icons/md";
+import { FaRss } from "react-icons/fa";
+import { HiCode } from "react-icons/hi";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 
-import NavItem from "./NavItem";
-import api from "../api";
+import NavLink from "./../elements/NavLink";
+import api from "../../api";
 
 export default function SidebarContent(props) {
   const [genres, setGenres] = useState([]);
   const integrations = useDisclosure();
 
-  useEffect(() => {
-    api.getGenres().then((response) => setGenres(response.data.genres));
-  }, []);
+  useEffect(
+    () => api.getGenres().then((response) => setGenres(response.data.genres)),
+    []
+  );
 
   return (
     <Box
@@ -59,37 +58,47 @@ export default function SidebarContent(props) {
         color="gray.600"
         aria-label="Main Navigation"
       >
-        <NavItem icon={MdHome} link="/">
-          Home
-        </NavItem>
-        <NavItem icon={FaRss} link="/">
-          Articles
-        </NavItem>
-        <NavItem icon={HiCollection} link="/">
-          Collections
-        </NavItem>
-        <NavItem icon={FaClipboardCheck} link="/">
-          Checklists
-        </NavItem>
-        <NavItem icon={HiCode} onClick={integrations.onToggle} link="/">
+        <NavLink
+          icon={FaRss}
+          link="/movies/[category]"
+          linkObject={{ category: "popular" }}
+        >
+          Popular
+        </NavLink>
+        <NavLink
+          icon={FaRss}
+          link="/movies/[category]"
+          linkObject={{ category: "upcoming" }}
+        >
+          Upcoming
+        </NavLink>
+        <NavLink
+          icon={FaRss}
+          link="/movies/[category]"
+          linkObject={{ category: "top_rated" }}
+        >
+          Top Rated
+        </NavLink>
+        <NavLink icon={HiCode} onClick={integrations.onToggle} link="/">
           Genres
           <Icon
             as={MdKeyboardArrowRight}
             ml="auto"
             transform={integrations.isOpen && "rotate(90deg)"}
           />
-        </NavItem>
+        </NavLink>
         <Collapse in={integrations.isOpen}>
           {genres &&
             genres.map((genre) => (
-              <NavItem
+              <NavLink
                 pl="12"
                 py="2"
                 key={genre.id}
-                link={"/movies/genre/" + genre.id}
+                link={"/movies/[category]/[genreId]"}
+                linkObject={{ category: "genre", genreId: genre.id }}
               >
                 {genre.name}
-              </NavItem>
+              </NavLink>
             ))}
         </Collapse>
       </Flex>

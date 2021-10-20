@@ -9,22 +9,25 @@ const instance = axios.create({
 });
 
 const api = {
-  getByCategory: (category) =>
+  getByCategory: (category, page) =>
     instance({
       method: "GET",
       url: "/movie/" + category,
+      params: { page: page },
       transformResponse: [(data) => JSON.parse(data)],
     }),
-  getTopRated: () =>
+  getTopRated: (page) =>
     instance({
       method: "GET",
       url: "/movie/top_rated",
+      params: { page: page },
       transformResponse: [(data) => JSON.parse(data)],
     }),
-  getUpComing: () =>
+  getUpComing: (page) =>
     instance({
       method: "GET",
       url: "/movie/upcoming",
+      params: { page: page },
       transformResponse: [(data) => JSON.parse(data)],
     }),
   getGenres: () =>
@@ -33,14 +36,46 @@ const api = {
       url: "/genre/movie/list",
       transformResponse: [(data) => JSON.parse(data)],
     }),
-  getByGenre: (genreId) =>
+  getByGenre: (genreId, page) =>
     instance({
       method: "GET",
       url: "/discover/movie",
       params: {
         with_genres: genreId,
         sort_by: "popularity.desc",
+        page: page,
       },
+      transformResponse: [(data) => JSON.parse(data)],
+    }),
+
+  getMovie: (movieId) =>
+    instance({
+      method: "GET",
+      url: "/movie/" + movieId,
+      transformResponse: [(data) => JSON.parse(data)],
+    }),
+
+  getMovieRecommendations: (movieId, page) =>
+    instance({
+      method: "GET",
+      url: "/movie/" + movieId + "/recommendations",
+      params: { page: page },
+      transformResponse: [(data) => JSON.parse(data)],
+    }),
+
+  getMovieCredits: (movieId, page) =>
+    instance({
+      method: "GET",
+      url: "/movie/" + movieId + "/credits",
+      params: { page: page },
+      transformResponse: [(data) => JSON.parse(data)],
+    }),
+
+  getMovieReviews: (movieId, page) =>
+    instance({
+      method: "GET",
+      url: "/movie/" + movieId + "/reviews",
+      params: { page: page },
       transformResponse: [(data) => JSON.parse(data)],
     }),
 };

@@ -106,7 +106,11 @@ export default function SidebarContent(props) {
                 py="2"
                 key={genre.id}
                 link={"/movies/[category]/[genreId]"}
-                linkObject={{ category: "genre", genreId: genre.id }}
+                linkObject={{
+                  category: "genre",
+                  genreId: genre.id,
+                  name: genre.name,
+                }}
               >
                 {genre.name}
               </NavLink>

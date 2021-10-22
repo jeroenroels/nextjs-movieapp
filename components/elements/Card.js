@@ -71,7 +71,7 @@ export default function Card({ movie }) {
                 }
               })}
             <Box as="span" ml="2" color="gray.600" fontSize="sm">
-              {movie.vote_count} review{movie.vote_count > 1 && "s"}
+              {movie.vote_count} vote{movie.vote_count > 1 && "s"}
             </Box>
           </Box>
         </Box>

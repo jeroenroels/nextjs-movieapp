@@ -78,6 +78,16 @@ const api = {
       params: { page: page },
       transformResponse: [(data) => JSON.parse(data)],
     }),
+  searchMovieByTitle: (query, page) =>
+    instance({
+      method: "GET",
+      url: "/search/movie",
+      params: {
+        query: query,
+        page: page,
+      },
+      transformResponse: [(data) => JSON.parse(data)],
+    }),
 };
 
 export default api;

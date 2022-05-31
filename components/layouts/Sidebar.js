@@ -11,7 +11,7 @@ import { SiThemoviedatabase } from "react-icons/si";
 import { BsFillBookmarkStarFill, BsMenuAppFill } from "react-icons/bs";
 import { GiPopcorn } from "react-icons/gi";
 import { MdKeyboardArrowRight, MdUpcoming } from "react-icons/md";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import NavLink from "./../elements/NavLink";
 import api from "../../api";
